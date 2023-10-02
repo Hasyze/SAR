@@ -25,11 +25,10 @@ public class CBroker extends Broker {
   public synchronized Channel connect(String name, int port) {
 	  if (BrokerManager.exist(name)) {
 		  if (ports.contains(port)) {
-			  return new Channel ();
+			  return new CChannel (this, port);
 		  }
 	  }
 	  return null;
-    //throw new RuntimeException("NYI");
   }
 
 }

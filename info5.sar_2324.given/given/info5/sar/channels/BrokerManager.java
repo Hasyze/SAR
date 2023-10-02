@@ -5,7 +5,7 @@ import java.util.Hashtable;
 
 public class BrokerManager {
 
-	static ArrayList <String> brokers;
+	static ArrayList <String> brokers = new ArrayList <String>();
 	
 	public  BrokerManager () {
 		brokers = new ArrayList <String>();
