@@ -23,6 +23,7 @@ package info5.sar.channels;
  */
 public abstract class Channel {
   Broker broker;
+  Channel channel;
   CircularBuffer in;
   CircularBuffer out;
   enum state {OPEN, CLOSE};
@@ -32,14 +33,16 @@ public abstract class Channel {
     this.broker = broker;
     this.in = new CircularBuffer(64);
     this.out = new CircularBuffer(64);
+    this.channel = null;
     etat = state.OPEN;
   }
   
   protected Channel (Channel channel) {
 	  this.in = channel.out;
 	  this.out = channel.in;
+	  this.channel = channel;
 	  etat = state.OPEN;
-  }
+	  }
 
   public Broker getBroker() {
     return broker;

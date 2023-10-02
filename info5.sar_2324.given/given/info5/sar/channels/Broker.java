@@ -1,6 +1,7 @@
 package info5.sar.channels;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 /*
  * Brokers are there to permit to establish channels.
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  */
 public abstract class Broker {
   String name;
-  ArrayList <Integer> ports;
+  Hashtable <Integer, Channel> connexions;
   /* 
    * Each broker must be uniquely named. 
    * @throws IllegalArgumentException if the name is not unique.
@@ -28,6 +29,7 @@ public abstract class Broker {
 	  }else {
 		  throw new IllegalArgumentException("");
 	  }
+	  connexions = new Hashtable <Integer, Channel> ();
   }
   
   /*

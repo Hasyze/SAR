@@ -17,17 +17,26 @@ public class CBroker extends Broker {
   }
 
   @Override
-  public Channel accept(int port) {
-    throw new RuntimeException("NYI");
+  public synchronized Channel accept(int port) {
+    while (!connexions.containsKey(port)) {
+    	try {
+			this.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    return new CChannel ( (CChannel) connexions.get(port));
   }
 
   @Override
   public synchronized Channel connect(String name, int port) {
 	  if (BrokerManager.exist(name)) {
-		  if (ports.contains(port)) {
-			  return new CChannel (this, port);
+		  notify();
+		  CChannel channel =  new CChannel (this, port);	
+		  connexions.put(port, channel);
+		  return channel;
 		  }
-	  }
 	  return null;
   }
 
